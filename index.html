@@ -14,18 +14,20 @@
    				[1,1,1,0,0,0],
    				[0,0,0,0,0,0],
    				[0,0,0,0,0,0]];
+			var reward = 0
 
 			$(document).ready(function() {
  			 var gameboard = $("<div id='gameboard'></div>");
 			 $(document.body).append(gameboard);
 				
-			for (i = 0; i++; i < board.length):
-				for (j = 0; j++; j < board[0].length):
+			for (i = 0; i < board.length; i++) {
+				for (j = 0; j < board[0].length; j++) {
 					var gridcell = $("<div class='gridcell'></div>");
 					var gridcellid = 'gridcell_' + i + '_' + j;
 					$(gridcell).attr("id", gridcellid);
 			 		$(gameboard).append(gridcell);
-			
+				}
+			}
 			 var ship = $("div class='ship'></div>");
 				
 			  $(document).keydown(function(e) {
@@ -43,13 +45,13 @@
 			  setInterval(function() {
 			    var milliseconds = new Date().getTime();
 			    var offset = Math.floor((milliseconds / 1000.0) % board.length)
-			    for (i = 0; i++; i < board.length - 1) {
-			    	for (j = 0; j++, j < board[0].length) {
+			    for (i = 0; i < board.length - 1; i++) {
+			    	for (j = 0; j < board[0].length; j++) {
 					var off = i - offset
 					if (off < 0) { off = off + board.length }
 					if (gameboard[off][j] == 1) {
 						$('#'+gridcellid).css("background-color", "blue")
-						if (off == shipx) { endGame() }
+						if (j == shipx) { endGame(milliseconds) }
 					}
 					else { $('#'+gridcellid).css("background-color", "gray") }
 					$(gridcell).attr("id", gridcellid)
@@ -57,10 +59,11 @@
 					}
 			    }
 			  }, 700);
+				
+			function endGame(milliseconds) {
+				reward = reward + (Math.floor(milliseconds / 1000.0) * 0.001)
+			}
 			})
-				
-			function endGame() {
-				
 			</script>
 			<style>
 				
