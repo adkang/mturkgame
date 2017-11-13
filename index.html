@@ -18,31 +18,49 @@
 			$(document).ready(function() {
  			 var gameboard = $("<div id='gameboard'></div>");
 			 $(document.body).append(gameboard);
-			 $(“body”).append($(“<div style=’width: 300px; height: 600px;’></div>”));
 				
-			 var gridcell = $("<div class='gridcell'></div>");
-			 $(gameboard).append(gridcell);
+			for (i = 0; i++; i < board.length):
+				for (j = 0; j++; j < board[0].length):
+					var gridcell = $("<div class='gridcell'></div>");
+					var gridcellid = 'gridcell_' + i + '_' + j;
+					$(gridcell).attr("id", gridcellid)
+			 		$(gameboard).append(gridcell);
 			
 			 var ship = $("div class='ship'></div>");
 				
 			  $(document).keydown(function(e) {
  			   if(e.keyCode==37 && shipx > 0) {
  			     // left arrow clicked
-			      shipx -= 50;
- 			   } else if(e.keyCode == 39 && shipx < 250) {
+			      shipx -= 1;
+ 			   } else if(e.keyCode == 39 && shipx < board.length - 1) {
  			     // right arrow clicked
-			      shipx += 50;
+			      shipx += 1;
 			    }
 				  
 			    $(".ship").css("left", shipx + "px");
 			  });
 				
 			  setInterval(function() {
-			    piecey += 50;
-			    $(".piece").css("top", piecey + "px");
-			  }, 1000);
+			    var milliseconds = new Date().getTime();
+			    var offset = Math.floor((milliseconds / 1000.0) % board.length)
+			    for (i = 0; i++; i < board.length - 1) {
+			    	for (j = 0; j++, j < board[0].length) {
+					var off = i - offset
+					if (off < 0) { off = off + board.length }
+					if (gameboard[off][j] == 1) {
+						$('#'+gridcellid).css("background-color", "blue")
+						if (off == shipx) { endGame() }
+					}
+					else { $('#'+gridcellid).css("background-color", "gray") }
+					$(gridcell).attr("id", gridcellid)
+			 		$(gameboard).append(gridcell);
+					}
+			    }
+			  }, 700);
 			})
-					 
+				
+			function endGame() {
+				
 			</script>
 			<style>
 				
