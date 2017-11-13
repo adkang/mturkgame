@@ -5,6 +5,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="mturk.js"></script>
     		<script>
+			var shipx = 0
 			var board =
   				[[0,0,0,1,0,0],
    				[0,0,0,0,1,1],
@@ -13,43 +14,54 @@
    				[1,1,1,0,0,0],
    				[0,0,0,0,0,0],
    				[0,0,0,0,0,0]];
-			
-			$(“body”).append($(“<div style=’width: 300px; height: 600px;’></div>”));
 
 			$(document).ready(function() {
  			 var gameboard = $("<div id='gameboard'></div>");
-			  $(document.body).append(gameboard);
+			 $(document.body).append(gameboard);
+			 $(“body”).append($(“<div style=’width: 300px; height: 600px;’></div>”));
 				
-			  var piece = $("<div class='piece'></div>");
-			  $(gameboard).append(piece);
+			 var gridcell = $("<div class='gridcell'></div>");
+			 $(gameboard).append(gridcell);
+			
+			 var ship = $("div class='ship'></div>");
 				
 			  $(document).keydown(function(e) {
- 			   if(e.keyCode==37) {
+ 			   if(e.keyCode==37 && shipx > 0) {
  			     // left arrow clicked
-			      piecex -= 25;
- 			   } else if(e.keyCode == 39) {
+			      shipx -= 50;
+ 			   } else if(e.keyCode == 39 && shipx < 250) {
  			     // right arrow clicked
-			      piecex += 25;
+			      shipx += 50;
 			    }
 				  
-			    $(".piece").css("left", piecex + "px");
+			    $(".ship").css("left", shipx + "px");
 			  });
 				
 			  setInterval(function() {
-			    piecey += 25;
+			    piecey += 50;
 			    $(".piece").css("top", piecey + "px");
 			  }, 1000);
 			})
+					 
 			</script>
 			<style>
+				
 			#gameboard {
 			  background-color: gray;
 			  width: 300px;
 			  height: 300px;
 			  position: relative;
 			}
-			.piece {
-			  background-color: #AAF;
+			.ship {
+			  background-color: red;
+			  width: 50px;
+			  height: 50px;
+			  position: absolute;
+			  left: 0px;
+			  top: 0px;
+			}
+			.gridcell {
+			  background-color: blue;
 			  width: 50px;
 			  height: 50px;
 			  position: absolute;
@@ -59,5 +71,9 @@
 			</style>
   	</head>
   <body>
+	<form is="mturk_form">
+		  
+	<input type="hidden" name="bonus">
+	  </form>
   </body>
 </html>
