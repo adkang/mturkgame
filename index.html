@@ -49,7 +49,7 @@
 					var off = i - offset
 					if (off < 0) { off = off + board.length }
 					if (board[off][j] == 1) {
-						if (j == shipx) { endGame(milliseconds) }
+						if (off == board.length - 1 && j == shipx) { endGame(milliseconds) }
 						$('#newcell').css("color", "blue")
 					}
 					else { $('#newcell').css("color", "gray") }
