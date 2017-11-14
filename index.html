@@ -54,6 +54,9 @@
 			      }
 			    }	  
 			    $(".ship").css("left", (50 * shipx) + "px");
+			    if (board[board.length - 1][shipx] == 1) {
+					endGame(milliseconds);
+				 }
 			  });
 				
 			  setInterval(function() {
