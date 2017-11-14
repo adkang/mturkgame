@@ -14,7 +14,6 @@
    				[1,1,1,0,0,0],
    				[0,0,0,0,0,0],
    				[0,0,0,0,0,0]];
-			var reward = 0
 
 			$(document).ready(function() {
  			 var gameboard = $("<div id='gameboard'></div>");
@@ -59,7 +58,7 @@
 			  }, 500);
 				
 			function endGame(milliseconds) {
-				reward = reward + (Math.floor(milliseconds / 1000.0) * 0.001)
+				var reward = Math.floor(milliseconds / 1000.0) * 0.001
 			}
 			})
 			</script>
